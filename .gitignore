@@ -1,0 +1,8 @@
+**/target/**
+*.iml
+.idea
+data/**
+test/**
+*.data
+*.index
+transport_data/**
