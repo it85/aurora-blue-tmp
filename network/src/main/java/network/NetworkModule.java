@@ -6,6 +6,7 @@ public final class NetworkModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(SocketManager.class);
         bind(Socket.class).to(JettySocket.class);
     }
 }

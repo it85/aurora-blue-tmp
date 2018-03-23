@@ -1,6 +1,6 @@
 package network;
 
-import messaging.MessageHandler;
+import common.messaging.MessageHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.ssl.SslContextFactory;

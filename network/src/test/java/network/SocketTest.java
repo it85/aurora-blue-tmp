@@ -8,7 +8,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Verify that the Socket is able to establish a connection and successfully handle a message
+ * Verify that the Socket is able to establish a connection and successfully handle a message. We use a real GDAX socket
+ * connection.
+ *
+ * !!If GDAX one day changes their socket protocol, this test will fail.
  */
 public class SocketTest {
 
