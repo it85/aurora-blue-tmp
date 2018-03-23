@@ -9,7 +9,7 @@ import network.SocketManager;
 /**
  * Opens a socket connection using the SocketManager, receives real-time market data, and persists into a buffer.
  */
-final class RealTimeMarketData implements Runnable, MessageHandler {
+final class RealTimeMDSEngine implements Runnable, MessageHandler {
 
     /**
      * Manages the connection to the market data source endpoint
@@ -22,7 +22,7 @@ final class RealTimeMarketData implements Runnable, MessageHandler {
     private final MarketDataSource source;
 
     @Inject
-    public RealTimeMarketData(SocketManager socketManager, MarketDataSource source) {
+    public RealTimeMDSEngine(SocketManager socketManager, MarketDataSource source) {
         this.socketManager = socketManager;
         this.source = source;
     }

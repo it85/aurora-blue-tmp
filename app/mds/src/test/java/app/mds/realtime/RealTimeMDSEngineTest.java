@@ -6,14 +6,14 @@ import com.google.inject.Injector;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RealTimeMarketDataTest {
+public class RealTimeMDSEngineTest {
 
-    private RealTimeMarketData realTimeMDS;
+    private RealTimeMDSEngine realTimeMDS;
 
     @Before
     public void setup() {
         Injector injector = Guice.createInjector(new MDSModule());
-        realTimeMDS = injector.getInstance(RealTimeMarketData.class);
+        realTimeMDS = injector.getInstance(RealTimeMDSEngine.class);
     }
 
     @Test
