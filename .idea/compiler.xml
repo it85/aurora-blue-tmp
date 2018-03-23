@@ -22,11 +22,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="pthree" />
+        <module name="common" />
+        <module name="mds" />
+        <module name="network" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="pthree" target="1.5" />
+      <module name="app" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="mds" target="1.8" />
+      <module name="network" target="1.8" />
+      <module name="pthree" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
