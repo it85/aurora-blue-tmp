@@ -9,15 +9,16 @@ import common.messaging.MessageHandler;
 public final class SocketManager {
 
     private final Socket socket;
-    private final WssEndpoint endpoint;
+
+    private WssEndpoint endpoint;
 
     @Inject
-    public SocketManager(Socket socket, WssEndpoint endpoint) {
+    public SocketManager(Socket socket) {
         this.socket = socket;
-        this.endpoint = endpoint;
     }
 
-    public void begin(MessageHandler handler) {
+    public void begin(MessageHandler handler, WssEndpoint endpoint) {
+        this.endpoint = endpoint;
         initialize(handler);
         begin();
     }

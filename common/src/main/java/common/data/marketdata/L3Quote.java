@@ -1,5 +1,6 @@
 package common.data.marketdata;
 
+// TODO: Refine this class to include exactly the fields we want to use
 public final class L3Quote {
 
     private String type;
@@ -31,5 +32,14 @@ public final class L3Quote {
     L3Quote price(double price) {
         this.price = price;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "L3Quote{" +
+                "type='" + type + '\'' +
+                ", size=" + size +
+                ", price=" + price +
+                '}';
     }
 }

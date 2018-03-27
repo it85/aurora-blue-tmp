@@ -1,7 +1,7 @@
 package common.data.marketdata;
 
-public interface MarketDataSource {
+public interface MarketDataSource<T> {
 
-    L3Quote convert(String quote);
+    T convert(String quote);
 
 }

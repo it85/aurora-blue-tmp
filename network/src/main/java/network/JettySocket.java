@@ -20,7 +20,8 @@ import java.util.concurrent.Future;
  * client connects!
  */
 @SuppressWarnings("WeakerAccess")
-@WebSocket
+//@WebSocket
+@WebSocket(maxTextMessageSize = 1048576, maxBinaryMessageSize = 1048576)
 public final class JettySocket implements Socket {
 
     private static final Logger LOG = LogManager.getLogger(JettySocket.class);
