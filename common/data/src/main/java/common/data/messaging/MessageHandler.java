@@ -1,4 +1,4 @@
-package common.messaging;
+package common.data.messaging;
 
 public interface MessageHandler {
 

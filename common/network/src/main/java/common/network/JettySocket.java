@@ -1,6 +1,6 @@
-package network;
+package common.network;
 
-import common.messaging.MessageHandler;
+import common.data.messaging.MessageHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
@@ -20,8 +20,7 @@ import java.util.concurrent.Future;
  * client connects!
  */
 @SuppressWarnings("WeakerAccess")
-//@WebSocket
-@WebSocket(maxTextMessageSize = 1048576, maxBinaryMessageSize = 1048576)
+@WebSocket(maxTextMessageSize = 1048576, maxBinaryMessageSize = 1048576) // TODO: make the max message size limit more robust
 public final class JettySocket implements Socket {
 
     private static final Logger LOG = LogManager.getLogger(JettySocket.class);

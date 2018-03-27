@@ -1,4 +1,4 @@
-package network;
+package common.network;
 
 import org.junit.After;
 import org.junit.Before;

@@ -8,8 +8,8 @@ import com.google.inject.TypeLiteral;
 import common.data.marketdata.Book;
 import common.data.marketdata.L3Quote;
 import common.data.marketdata.MarketDataSource;
-import network.NetworkModule;
-import network.WssEndpoint;
+import common.network.NetworkModule;
+import common.network.WssEndpoint;
 
 public class MDSModule extends AbstractModule {
 

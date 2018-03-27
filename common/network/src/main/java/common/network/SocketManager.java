@@ -1,7 +1,7 @@
-package network;
+package common.network;
 
 import com.google.inject.Inject;
-import common.messaging.MessageHandler;
+import common.data.messaging.MessageHandler;
 
 /**
  * Manipulates socket connections and is responsible for bringing up/shutting down sessions

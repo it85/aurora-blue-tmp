@@ -1,4 +1,4 @@
-package network;
+package common.network;
 
 /**
  * Encapsulates connection details to a particular endpoint. Every WssEndpoint supplies it's connection URI as well as

@@ -1,6 +1,6 @@
-package network;
+package common.network;
 
-import common.messaging.MessageHandler;
+import common.data.messaging.MessageHandler;
 
 /**
  * A web socket used to open a TCP connection with an endpoint.

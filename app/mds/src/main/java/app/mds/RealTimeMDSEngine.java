@@ -1,10 +1,10 @@
-package app.mds.realtime;
+package app.mds;
 
 import com.google.inject.Inject;
 import common.data.marketdata.MarketDataSource;
-import common.messaging.MessageHandler;
-import network.SocketManager;
-import network.WssEndpoint;
+import common.data.messaging.MessageHandler;
+import common.network.SocketManager;
+import common.network.WssEndpoint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

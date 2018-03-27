@@ -1,6 +1,5 @@
-package app.mds.realtime;
+package app.mds;
 
-import app.mds.MDSModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Key;
@@ -23,14 +22,14 @@ public class RealTimeMDSEngineTest {
     }
 
     @Test
-    public void canConnectToLevel3() throws InterruptedException {
+    public void canConnectToLevel3Test() throws InterruptedException {
         level3.run();
-        Thread.sleep(1000000);
+        Thread.sleep(1000);
     }
 
     @Test
-    public void canConnectToLevel2() throws InterruptedException {
+    public void canConnectToLevel2Test() throws InterruptedException {
         level2.run();
-        Thread.sleep(1000000);
+        Thread.sleep(1000);
     }
 }

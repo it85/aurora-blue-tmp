@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import common.data.marketdata.Instrument;
 import common.data.marketdata.L3Quote;
 import common.data.marketdata.MarketDataSource;
-import network.WssEndpoint;
+import common.network.WssEndpoint;
 
 public class L3Gdax implements MarketDataSource<L3Quote>, WssEndpoint {
 
