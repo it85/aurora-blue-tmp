@@ -16,9 +16,9 @@ import org.apache.logging.log4j.Logger;
  * 3. normalize into internal data structure protocol
  * 4. persists into a buffer
  */
-final class RealTimeMDSEngine<T> implements Runnable, MessageHandler {
+final class RealTimeMDSReceiver<T> implements Runnable, MessageHandler {
 
-    private static final Logger LOG = LogManager.getLogger(RealTimeMDSEngine.class);
+    private static final Logger LOG = LogManager.getLogger(RealTimeMDSReceiver.class);
 
     /**
      * Manages the connection to the market data source endpoint
@@ -31,7 +31,7 @@ final class RealTimeMDSEngine<T> implements Runnable, MessageHandler {
     private final MarketDataSource<T> source;
 
     @Inject
-    public RealTimeMDSEngine(SocketManager socketManager, MarketDataSource<T> source) {
+    public RealTimeMDSReceiver(SocketManager socketManager, MarketDataSource<T> source) {
         this.socketManager = socketManager;
         this.source = source;
     }

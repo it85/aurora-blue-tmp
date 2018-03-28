@@ -9,7 +9,7 @@ import common.network.WssEndpoint;
 
 public class L2Gdax implements MarketDataSource<Book>, WssEndpoint {
 
-    private static final String ENDPOINT = "wss://ws-feed.gdax.com";
+    private static final String ENDPOINT = "wss://ws-feed.gdax.com";    // TODO: Refactor into a common class
 
     private final Instrument instrument;
     private final Gson gson;    // TODO: Get rid and use low-latency custom String parser

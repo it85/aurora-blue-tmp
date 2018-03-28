@@ -9,16 +9,16 @@ import common.data.marketdata.L3Quote;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RealTimeMDSEngineTest {
+public class RealTimeMDSReceiverTest {
 
-    private RealTimeMDSEngine<L3Quote> level3;
-    private RealTimeMDSEngine<Book> level2;
+    private RealTimeMDSReceiver<L3Quote> level3;
+    private RealTimeMDSReceiver<Book> level2;
 
     @Before
     public void setup() {
         Injector injector = Guice.createInjector(new MDSModule());
-        level2 = injector.getInstance(Key.get(new TypeLiteral<RealTimeMDSEngine<Book>>(){}));
-        level3 = injector.getInstance(Key.get(new TypeLiteral<RealTimeMDSEngine<L3Quote>>(){}));
+        level2 = injector.getInstance(Key.get(new TypeLiteral<RealTimeMDSReceiver<Book>>(){}));
+        level3 = injector.getInstance(Key.get(new TypeLiteral<RealTimeMDSReceiver<L3Quote>>(){}));
     }
 
     @Test
