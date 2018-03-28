@@ -12,7 +12,6 @@
     <artifactId>network</artifactId>
 
     <properties>
-        <common.version>1.0-SNAPSHOT</common.version>
         <apache.http.version>4.5.3</apache.http.version>
         <javax.websocket.version>1.1</javax.websocket.version>
         <tyrus.client.version>1.1</tyrus.client.version>
@@ -21,11 +20,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.tyan</groupId>
-            <artifactId>common</artifactId>
-            <version>${common.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

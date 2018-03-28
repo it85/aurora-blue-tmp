@@ -1,5 +1,7 @@
 package common.data.marketdata;
 
+import common.data.messaging.Serializable;
+
 /**
  * Encapsulates the book for a single venue. Internally we represents quotes in a 2-D double array where the first
  * column is the price followed by the corresponding shares at that price level. Every row is a different price level.
@@ -20,11 +22,15 @@ package common.data.marketdata;
  * [100.03] [140]
  * [100.04] [200]
  */
-public class Book {
+public class Book implements Serializable {
 
     private String product_id;
     private String type;
     private double[][] bids;
     private double[][] asks;
 
+    @Override
+    public byte[] serialize() {
+        return new byte[0];
+    }
 }

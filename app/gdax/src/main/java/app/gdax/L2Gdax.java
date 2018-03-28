@@ -5,9 +5,8 @@ import com.google.inject.Inject;
 import common.data.marketdata.Book;
 import common.data.marketdata.Instrument;
 import common.data.marketdata.MarketDataSource;
-import common.network.WssEndpoint;
 
-public class L2Gdax implements MarketDataSource<Book>, WssEndpoint {
+public class L2Gdax implements MarketDataSource<Book> {
 
     private static final String ENDPOINT = "wss://ws-feed.gdax.com";    // TODO: Refactor into a common class
 
