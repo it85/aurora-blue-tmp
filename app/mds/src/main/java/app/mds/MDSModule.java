@@ -7,7 +7,7 @@ import com.google.inject.TypeLiteral;
 import common.data.marketdata.Book;
 import common.data.marketdata.L3Quote;
 import common.data.marketdata.MarketDataSource;
-import common.network.NetworkModule;
+import core.network.NetworkModule;
 
 public class MDSModule extends AbstractModule {
 

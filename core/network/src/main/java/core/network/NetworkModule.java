@@ -1,6 +1,8 @@
-package common.network;
+package core.network;
 
 import com.google.inject.AbstractModule;
+import common.network.Socket;
+import common.network.SocketManager;
 
 public final class NetworkModule extends AbstractModule {
 

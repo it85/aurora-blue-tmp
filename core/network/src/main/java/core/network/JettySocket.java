@@ -1,6 +1,7 @@
-package common.network;
+package core.network;
 
 import common.data.messaging.MessageHandler;
+import common.network.Socket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.util.ssl.SslContextFactory;

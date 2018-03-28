@@ -13,14 +13,14 @@
     <packaging>jar</packaging>
 
     <properties>
-        <common.version>1.0-SNAPSHOT</common.version>
+        <network.version>1.0-SNAPSHOT</network.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.tyan</groupId>
-            <artifactId>common</artifactId>
-            <version>${common.version}</version>
+            <artifactId>network</artifactId>
+            <version>${network.version}</version>
         </dependency>
     </dependencies>
 
