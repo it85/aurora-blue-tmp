@@ -10,5 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>gdax</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <common.version>1.0-SNAPSHOT</common.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tyan</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -5,9 +5,8 @@ import com.google.inject.Inject;
 import common.data.marketdata.Instrument;
 import common.data.marketdata.L3Quote;
 import common.data.marketdata.MarketDataSource;
-import common.network.WssEndpoint;
 
-public class L3Gdax implements MarketDataSource<L3Quote>, WssEndpoint {
+public class L3Gdax implements MarketDataSource<L3Quote> {
 
     private static final String ENDPOINT = "wss://ws-feed.gdax.com";
 

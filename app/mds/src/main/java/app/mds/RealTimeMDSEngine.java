@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import common.data.marketdata.MarketDataSource;
 import common.data.messaging.MessageHandler;
 import common.network.SocketManager;
-import common.network.WssEndpoint;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,21 +30,15 @@ final class RealTimeMDSEngine<T> implements Runnable, MessageHandler {
      */
     private final MarketDataSource<T> source;
 
-    /**
-     * The socket endpoint we're trying to connect to acquire market data
-     */
-    private final WssEndpoint endpoint;
-
     @Inject
-    public RealTimeMDSEngine(SocketManager socketManager, MarketDataSource<T> source, WssEndpoint endpoint) {
+    public RealTimeMDSEngine(SocketManager socketManager, MarketDataSource<T> source) {
         this.socketManager = socketManager;
         this.source = source;
-        this.endpoint = endpoint;
     }
 
     @Override
     public void run() {
-        socketManager.begin(this, endpoint);
+        socketManager.begin(this, source);
     }
 
     @Override
