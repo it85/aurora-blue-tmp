@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
  * 3. normalize into internal data structure protocol
  * 4. persists into a buffer
  */
+// TODO: The socket invokes onMessage potentially via different threads which is problematic for Chronicle: possible solution is to commit the String message to a shared queue which this class is continuously polling on our native thread to then write to C
 final class MarketDataChannel implements Runnable, MessageHandler {
 
     private static final Logger LOG = LogManager.getLogger(MarketDataChannel.class);
@@ -34,7 +35,6 @@ final class MarketDataChannel implements Runnable, MessageHandler {
     private final MarketDataSource source;
     private final SerialWriter writer;
 
-    // TODO: Use a factory pattern (@Assisted guice) to inject the desired market data source into this channel
     @Inject
     MarketDataChannel(SocketManager socketManager,
                              SerialWriter serialWriter,
@@ -52,6 +52,7 @@ final class MarketDataChannel implements Runnable, MessageHandler {
     @Override
     public void onMessage(String message) {
         Serializable data = source.convert(message);
+        System.out.println(Thread.currentThread().getName());
         writer.write(data);
 
         if (LOG.isTraceEnabled()) {

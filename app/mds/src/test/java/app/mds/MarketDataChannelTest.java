@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-// TODO: Fix this unit test because Chronicle is complaining about multi-threaded access
 public class MarketDataChannelTest {
 
     private MarketDataChannel level2;
@@ -23,11 +22,11 @@ public class MarketDataChannelTest {
         level3 = injector.getInstance(MarketDataChannelFactory.class).create(sourceFactory.create(Type.L3));
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void canConnectToLevel2Test() throws InterruptedException {
         level2.run();
-        Thread.sleep(1000);
+        Thread.sleep(10000);
     }
 
     @Ignore

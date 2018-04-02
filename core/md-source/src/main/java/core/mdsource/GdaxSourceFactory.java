@@ -2,7 +2,8 @@ package core.mdsource;
 
 import common.data.marketdata.MarketDataSource;
 
-public class GdaxSourceFactory implements MarketDataSourceFactory {
+final class GdaxSourceFactory implements MarketDataSourceFactory {
+
     @Override
     public MarketDataSource create(MarketDataSource.Type type) {
         switch (type) {
