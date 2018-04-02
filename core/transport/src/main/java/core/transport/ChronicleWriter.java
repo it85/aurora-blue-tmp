@@ -3,7 +3,7 @@ package core.transport;
 import chronicle.ChronicleFactory;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import common.data.messaging.Serializable;
+import common.data.type.Serializable;
 import common.transport.SerialWriter;
 import net.openhft.chronicle.bytes.Bytes;
 import net.openhft.chronicle.queue.ExcerptAppender;

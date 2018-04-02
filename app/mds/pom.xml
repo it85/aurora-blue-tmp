@@ -14,14 +14,21 @@
 
     <properties>
         <common.version>1.0-SNAPSHOT</common.version>
+        <md-source.version>1.0-SNAPSHOT</md-source.version>
+        <network.version>1.0-SNAPSHOT</network.version>
         <transport.version>1.0-SNAPSHOT</transport.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.tyan</groupId>
-            <artifactId>gdax</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>md-source</artifactId>
+            <version>${md-source.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tyan</groupId>
+            <artifactId>network</artifactId>
+            <version>${network.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tyan</groupId>

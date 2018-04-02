@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>mds</module>
-        <module>gdax</module>
     </modules>
 
     <properties>

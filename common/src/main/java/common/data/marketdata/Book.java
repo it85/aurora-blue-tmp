@@ -1,6 +1,6 @@
 package common.data.marketdata;
 
-import common.data.messaging.Serializable;
+import common.data.type.Serializable;
 
 /**
  * Encapsulates the book for a single venue. Internally we represents quotes in a 2-D double array where the first

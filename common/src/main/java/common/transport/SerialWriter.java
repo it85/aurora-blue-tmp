@@ -1,6 +1,6 @@
 package common.transport;
 
-import common.data.messaging.Serializable;
+import common.data.type.Serializable;
 
 public interface SerialWriter {
 

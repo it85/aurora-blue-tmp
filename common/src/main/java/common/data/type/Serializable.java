@@ -1,4 +1,4 @@
-package common.data.messaging;
+package common.data.type;
 
 public interface Serializable {
 

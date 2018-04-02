@@ -1,27 +1,27 @@
 package app.mds;
 
 import com.google.inject.Inject;
-import common.data.messaging.Serializable;
 import common.data.marketdata.MarketDataSource;
 import common.data.messaging.MessageHandler;
+import common.data.type.Serializable;
 import common.network.SocketManager;
 import common.transport.SerialWriter;
-import common.transport.ipc.SerialWriterFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This class serves as an abstraction to facilitate real-time communication with a market data socket and normalize
- * inbound packets into an internal market data format.
+ * A single market data channel which supports a specific form of market data, e.g. L1, L2, or L3. Each channel spawns its
+ * own thread for performing its work.
  * <p>
+ * High Level Procedure
  * 1. open a socket connection using the SocketManager
  * 2. receive real-time market data
  * 3. normalize into internal data structure protocol
  * 4. persists into a buffer
  */
-final class RealTimeMDSReceiver<T extends Serializable> implements Runnable, MessageHandler {
+final class MarketDataChannel implements Runnable, MessageHandler {
 
-    private static final Logger LOG = LogManager.getLogger(RealTimeMDSReceiver.class);
+    private static final Logger LOG = LogManager.getLogger(MarketDataChannel.class);
 
     /**
      * Manages the connection to the market data source endpoint
@@ -34,13 +34,14 @@ final class RealTimeMDSReceiver<T extends Serializable> implements Runnable, Mes
     private final MarketDataSource source;
     private final SerialWriter writer;
 
+    // TODO: Use a factory pattern (@Assisted guice) to inject the desired market data source into this channel
     @Inject
-    public RealTimeMDSReceiver(SocketManager socketManager,
-                               SerialWriterFactory serialWriterFactory,
-                               MarketDataSource source) {
+    public MarketDataChannel(SocketManager socketManager,
+                             SerialWriter serialWriter,
+                             MarketDataSource source) {
         this.socketManager = socketManager;
         this.source = source;
-        this.writer = serialWriterFactory.create("transport/mds");    // TODO: abstract out this file path concern..
+        this.writer = serialWriter;
     }
 
     @Override

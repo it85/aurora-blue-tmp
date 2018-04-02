@@ -1,6 +1,6 @@
 package common.data.marketdata;
 
-import common.data.messaging.Serializable;
+import common.data.type.Serializable;
 
 // TODO: Refine this class to include exactly the fields we want to use
 public final class L3Quote implements Serializable {
