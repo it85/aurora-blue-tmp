@@ -7,6 +7,6 @@ public class MarketDataSourceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(MarketDataSourceFactory.class).in(Singleton.class);
+        bind(MarketDataSourceFactory.class).to(GdaxSourceFactory.class).in(Singleton.class);
     }
 }

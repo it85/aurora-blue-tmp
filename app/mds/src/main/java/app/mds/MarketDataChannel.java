@@ -36,7 +36,7 @@ final class MarketDataChannel implements Runnable, MessageHandler {
 
     // TODO: Use a factory pattern (@Assisted guice) to inject the desired market data source into this channel
     @Inject
-    public MarketDataChannel(SocketManager socketManager,
+    MarketDataChannel(SocketManager socketManager,
                              SerialWriter serialWriter,
                              MarketDataSource source) {
         this.socketManager = socketManager;
