@@ -11,6 +11,6 @@ public interface MarketDataSource<T extends Serializable> extends WssEndpoint {
         L3
     }
 
-    T convert(String quote);
+    T translate(String quote);
 
 }

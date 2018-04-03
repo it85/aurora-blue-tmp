@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  */
 public final class MDS implements Runnable {
 
-    private static final Logger LOG = LogManager.getLogger(MDChannel.class);
+    private static final Logger LOG = LogManager.getLogger(MDS.class);
 
     private final MDService service;
     private final SerialWriter writer;
@@ -42,6 +42,10 @@ public final class MDS implements Runnable {
         // TODO: improve busy spin policy
         while (true) {
             if (buffer.peek() != null) {
+                if (LOG.isTraceEnabled()) {
+                    LOG.trace(buffer.peek());
+                }
+
                 writer.write(buffer.poll());
             }
         }

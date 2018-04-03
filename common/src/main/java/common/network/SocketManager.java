@@ -17,10 +17,13 @@ public final class SocketManager {
         this.socket = socket;
     }
 
-    public void begin(MessageHandler handler, WssEndpoint endpoint) {
+    public void init(MessageHandler handler, WssEndpoint endpoint) {
         this.endpoint = endpoint;
         initialize(handler);
-        begin();
+    }
+
+    public void begin() {
+        socket.send(endpoint.handshake());
     }
 
     public void shutdown() {
@@ -30,9 +33,5 @@ public final class SocketManager {
     private void initialize(MessageHandler handler) {
         socket.registerHandler(handler);
         socket.open(endpoint.wss());
-    }
-
-    private void begin() {
-        socket.send(endpoint.handshake());
     }
 }

@@ -12,6 +12,10 @@ import org.apache.logging.log4j.Logger;
 /**
  * A single market data channel which supports a specific form of market data, e.g. L1, L2, or L3. Each channel spawns its
  * own thread for performing its work.
+ *
+ * It's imperative that the {@link #init()} function is called before anything else since all channels hit the same
+ * socket endpoint which means requests to the socket must be made/handled serially.
+ *
  * <p>
  * High Level Procedure
  * 1. open a socket connection using the SocketManager
@@ -45,16 +49,22 @@ final class MDChannel implements Runnable, MessageHandler {
         this.socketManager = socketManager;
         this.source = source;
         this.buffer = buffer;
+
+        init();
+    }
+
+    private void init() {
+        socketManager.init(this, source);
     }
 
     @Override
     public void run() {
-        socketManager.begin(this, source);
+        socketManager.begin();
     }
 
     @Override
     public void onMessage(String message) {
-        Serializable data = source.convert(message);
+        Serializable data = source.translate(message);
         buffer.add(data);
 
         if (LOG.isTraceEnabled()) {

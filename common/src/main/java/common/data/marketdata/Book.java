@@ -2,6 +2,8 @@ package common.data.marketdata;
 
 import common.data.type.Serializable;
 
+import java.util.Arrays;
+
 /**
  * Encapsulates the book for a single venue. Internally we represents quotes in a 2-D double array where the first
  * column is the price followed by the corresponding shares at that price level. Every row is a different price level.
@@ -32,5 +34,15 @@ public class Book implements Serializable {
     @Override
     public byte[] serialize() {
         return new byte[0];
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "product_id='" + product_id + '\'' +
+                ", type='" + type + '\'' +
+                ", bids=" + Arrays.toString(bids) +
+                ", asks=" + Arrays.toString(asks) +
+                '}';
     }
 }
