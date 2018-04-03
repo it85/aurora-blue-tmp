@@ -8,23 +8,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Encapsulates multiple market data channels and normalizes all of their data by writing/persisted it some shared
- * transport layer.
+ * Encapsulates, and initializes, multiple market data channels. This class is responsible for starting up enabled
+ * channels.
  */
 
-public class MarketDataService implements Runnable {
+final class MDService {
 
-    private static final Logger LOG = LogManager.getLogger(MarketDataChannel.class);
+    private static final Logger LOG = LogManager.getLogger(MDChannel.class);
 
-    //    private final MarketDataChannel level1;   // TODO: implement L1 at some point
-    private final MarketDataChannel level2;
-    private final MarketDataChannel level3;
+    //    private final MDChannel level1;   // TODO: implement L1 at some point
+    private final MDChannel level2;
+    private final MDChannel level3;
 
     private boolean l2Enabled;
     private boolean l3Enabled;
 
     @Inject
-    public MarketDataService(MarketDataSourceFactory sourceFactory, MarketDataChannelFactory channelFactory) {
+    MDService(MarketDataSourceFactory sourceFactory, MDChannelFactory channelFactory) {
         MarketDataSource l2Source = sourceFactory.create(Type.L2);
         MarketDataSource l3Source = sourceFactory.create(Type.L3);
 
@@ -43,8 +43,7 @@ public class MarketDataService implements Runnable {
         l3Enabled = true;
     }
 
-    @Override
-    public void run() {
+    public void start() {
         if (l2Enabled) {
             LOG.debug("Starting Level 2 market data channel");
             new Thread(level2).start();

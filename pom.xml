@@ -12,6 +12,7 @@
         <module>common</module>
         <module>app</module>
         <module>core</module>
+        <module>sandbox</module>
     </modules>
 
     <properties>

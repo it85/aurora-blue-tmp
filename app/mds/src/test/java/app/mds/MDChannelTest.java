@@ -8,18 +8,18 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class MarketDataChannelTest {
+public class MDChannelTest {
 
-    private MarketDataChannel level2;
-    private MarketDataChannel level3;
+    private MDChannel level2;
+    private MDChannel level3;
 
     @Before
     public void setup() {
         Injector injector = Guice.createInjector(new MDSModule());
         MarketDataSourceFactory sourceFactory = injector.getInstance(MarketDataSourceFactory.class);
 
-        level2 = injector.getInstance(MarketDataChannelFactory.class).create(sourceFactory.create(Type.L2));
-        level3 = injector.getInstance(MarketDataChannelFactory.class).create(sourceFactory.create(Type.L3));
+        level2 = injector.getInstance(MDChannelFactory.class).create(sourceFactory.create(Type.L2));
+        level3 = injector.getInstance(MDChannelFactory.class).create(sourceFactory.create(Type.L3));
     }
 
 //    @Ignore

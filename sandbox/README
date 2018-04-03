@@ -1,0 +1,2 @@
+The sandbox module is strictly for quickly play-testing various changes to this project. It's meant to function as a
+middle ground between using unit tests to smoke test changes and running the full-blow app.

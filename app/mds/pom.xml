@@ -17,6 +17,7 @@
         <md-source.version>1.0-SNAPSHOT</md-source.version>
         <network.version>1.0-SNAPSHOT</network.version>
         <transport.version>1.0-SNAPSHOT</transport.version>
+        <collection.version>1.0-SNAPSHOT</collection.version>
     </properties>
 
     <dependencies>
@@ -24,6 +25,11 @@
             <groupId>com.tyan</groupId>
             <artifactId>md-source</artifactId>
             <version>${md-source.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tyan</groupId>
+            <artifactId>collection</artifactId>
+            <version>${collection.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tyan</groupId>

@@ -1,11 +1,11 @@
 package app.mds;
 
 import com.google.inject.Inject;
+import common.collection.SharedQueueBuffer;
 import common.data.marketdata.MarketDataSource;
 import common.data.messaging.MessageHandler;
 import common.data.type.Serializable;
 import common.network.SocketManager;
-import common.transport.SerialWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,10 +19,9 @@ import org.apache.logging.log4j.Logger;
  * 3. normalize into internal data structure protocol
  * 4. persists into a buffer
  */
-// TODO: The socket invokes onMessage potentially via different threads which is problematic for Chronicle: possible solution is to commit the String message to a shared queue which this class is continuously polling on our native thread to then write to C
-final class MarketDataChannel implements Runnable, MessageHandler {
+final class MDChannel implements Runnable, MessageHandler {
 
-    private static final Logger LOG = LogManager.getLogger(MarketDataChannel.class);
+    private static final Logger LOG = LogManager.getLogger(MDChannel.class);
 
     /**
      * Manages the connection to the market data source endpoint
@@ -33,15 +32,19 @@ final class MarketDataChannel implements Runnable, MessageHandler {
      * An abstraction of the market data source we're talking to
      */
     private final MarketDataSource source;
-    private final SerialWriter writer;
+
+    /**
+     * Market data gets persisted into this queue
+     */
+    private final SharedQueueBuffer<Serializable> buffer;
 
     @Inject
-    MarketDataChannel(SocketManager socketManager,
-                             SerialWriter serialWriter,
-                             MarketDataSource source) {
+    MDChannel(SocketManager socketManager,
+              SharedQueueBuffer<Serializable> buffer,
+              MarketDataSource source) {
         this.socketManager = socketManager;
         this.source = source;
-        this.writer = serialWriter;
+        this.buffer = buffer;
     }
 
     @Override
@@ -52,8 +55,7 @@ final class MarketDataChannel implements Runnable, MessageHandler {
     @Override
     public void onMessage(String message) {
         Serializable data = source.convert(message);
-        System.out.println(Thread.currentThread().getName());
-        writer.write(data);
+        buffer.add(data);
 
         if (LOG.isTraceEnabled()) {
             LOG.trace(data);
