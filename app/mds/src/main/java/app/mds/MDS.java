@@ -25,7 +25,7 @@ public final class MDS implements Runnable {
     public MDS(MDService service, SerialWriterFactory factory, SharedQueueBuffer<Serializable> buffer) {
         this.service = service;
         this.buffer = buffer;
-        this.writer = factory.create("transport/mds");
+        this.writer = factory.create("data/transport/mds");
 
         // TODO: abstract out the enabling of different channels out of this class
         service.enableL2();
