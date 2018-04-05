@@ -1,0 +1,20 @@
+The transport reader module can be a little complex so here's a brief explanation to explain it all:
+
+GenericReader is the main entry point / running thread. It's a vanilla class that simply busy spins polling the RawReader
+for new messages. The RawReader, upon getting a new message, will wrap this into a buffer and pass it to a BufferHandler.
+The BufferHandler will determine what the message type/ID is and invoke the correct API for de-serializing the buffer.
+
+The key to note is that the GenericReader gets injected a DomainReader which is the class that wraps around a domain-specific
+reader, i.e. the DomainReader knows the path to the data source to be read.
+
+The key point to note is that the BufferHandler is where the logic becomes domain specific. Every class up to the BufferHandler
+is generic and can injected with different RawReaders/BufferHandlers to handle different domains. However, from the BufferHandler
+and onwards, the composed classes are domain specific.
+
+=======
+Example
+=======
+
+GenericReader gets injected a DomainReader which encapsulates the raw data source path
+
+GenericReader --[poll RawReader]--> RawReader --[wraps message into buffer]--> BufferHandler --[determines message type and dispatches]--> (Domain-specific Dispatcher, e.g. MDDispatcher)
