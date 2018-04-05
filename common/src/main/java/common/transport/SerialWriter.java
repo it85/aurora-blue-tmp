@@ -1,14 +1,12 @@
 package common.transport;
 
-import common.data.type.Serializable;
+import java.nio.ByteBuffer;
 
 public interface SerialWriter {
 
     /**
-     * Writes this serializable message to some underlying data storage.
-     *
-     * @return true if the message was successfully committed
+     * Writes this byte buffer to some underlying data source
      */
-    boolean write(Serializable message);
+    void write(ByteBuffer buffer);
 
 }

@@ -32,11 +32,6 @@ public class Book implements Serializable {
     private double[][] asks;
 
     @Override
-    public byte[] serialize() {
-        return new byte[0];
-    }
-
-    @Override
     public String toString() {
         return "Book{" +
                 "product_id='" + product_id + '\'' +
@@ -44,5 +39,11 @@ public class Book implements Serializable {
                 ", bids=" + Arrays.toString(bids) +
                 ", asks=" + Arrays.toString(asks) +
                 '}';
+    }
+
+    @Override
+    public short id() {
+        // TODO:
+        return 0;
     }
 }

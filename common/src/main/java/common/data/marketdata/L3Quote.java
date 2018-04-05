@@ -5,11 +5,41 @@ import common.data.type.Serializable;
 // TODO: Refine this class to include exactly the fields we want to use
 public final class L3Quote implements Serializable {
 
+    /**
+     * The type this object is; used for message handling purposes
+     */
+    public static final short ID = 0;
+
+    /**
+     * Below is the message schema for a given L3Quote object. <field_name>I represents the index used to store this
+     * field.
+     */
+    private static final int TYPE_I = 1;
+    private static final int SIZE_I = 2;
+    private static final int PRICE_I = 3;
+
     private String type;
     private double size;
     private double price;
 
-    String type() {
+    @Override
+    public short id() {
+        return ID;
+    }
+
+    public static int typeI() {
+        return TYPE_I;
+    }
+
+    public static int sizeI() {
+        return SIZE_I;
+    }
+
+    public static int priceI() {
+        return PRICE_I;
+    }
+
+    public String type() {
         return type;
     }
 
@@ -18,7 +48,7 @@ public final class L3Quote implements Serializable {
         return this;
     }
 
-    double size() {
+    public double size() {
         return size;
     }
 
@@ -27,7 +57,7 @@ public final class L3Quote implements Serializable {
         return this;
     }
 
-    double price() {
+    public double price() {
         return price;
     }
 
@@ -43,10 +73,5 @@ public final class L3Quote implements Serializable {
                 ", size=" + size +
                 ", price=" + price +
                 '}';
-    }
-
-    @Override
-    public byte[] serialize() {
-        return new byte[0];
     }
 }

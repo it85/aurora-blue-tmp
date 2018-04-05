@@ -1,11 +1,11 @@
-package core.transport;
+package core.transport.write;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import common.transport.SerialWriter;
-import common.transport.ipc.SerialWriterFactory;
+import common.transport.SerialWriterFactory;
 
-public class TransportModule extends AbstractModule {
+class WriterTransportModule extends AbstractModule {
 
     @Override
     protected void configure() {

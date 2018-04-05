@@ -3,7 +3,7 @@ package app.mds;
 import com.google.inject.Inject;
 import common.collection.SharedQueueBuffer;
 import common.data.marketdata.MarketDataSource;
-import common.data.messaging.MessageHandler;
+import common.messaging.MessageHandler;
 import common.data.type.Serializable;
 import common.network.SocketManager;
 import org.apache.logging.log4j.LogManager;

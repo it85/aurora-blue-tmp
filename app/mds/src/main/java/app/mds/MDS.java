@@ -2,9 +2,9 @@ package app.mds;
 
 import com.google.inject.Inject;
 import common.collection.SharedQueueBuffer;
+import common.data.marketdata.L3Quote;
+import common.messaging.MDWriter;
 import common.data.type.Serializable;
-import common.transport.SerialWriter;
-import common.transport.ipc.SerialWriterFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,18 +18,24 @@ public final class MDS implements Runnable {
     private static final Logger LOG = LogManager.getLogger(MDS.class);
 
     private final MDService service;
-    private final SerialWriter writer;
+    private final MDWriter writer;
     private final SharedQueueBuffer<Serializable> buffer;
 
     @Inject
-    public MDS(MDService service, SerialWriterFactory factory, SharedQueueBuffer<Serializable> buffer) {
+    public MDS(MDService service, MDWriter writer, SharedQueueBuffer<Serializable> buffer) {
         this.service = service;
         this.buffer = buffer;
-        this.writer = factory.create("data/transport/mds");
+        this.writer = writer;
 
         // TODO: abstract out the enabling of different channels out of this class
         service.enableL2();
         service.enableL3();
+    }
+
+    @Override
+    public void run() {
+        init();
+        poll();
     }
 
     private void init() {
@@ -45,15 +51,15 @@ public final class MDS implements Runnable {
                 if (LOG.isTraceEnabled()) {
                     LOG.trace(buffer.peek());
                 }
-
-                writer.write(buffer.poll());
+                write(buffer.poll());
             }
         }
     }
 
-    @Override
-    public void run() {
-        init();
-        poll();
+    // TODO: figure out a way to get rid of doing dirty casting -- might not be possible but need to try
+    private void write(Serializable data) {
+        if (data instanceof L3Quote) {
+            writer.l3Quote((L3Quote) data);
+        }
     }
 }

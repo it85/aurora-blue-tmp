@@ -2,6 +2,9 @@ package common.data.type;
 
 public interface Serializable {
 
-    byte[] serialize();
+    /**
+     * @return the id denoting what type of Serializable this instance is
+     */
+    short id();
 
 }

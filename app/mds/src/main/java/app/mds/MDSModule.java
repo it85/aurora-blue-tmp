@@ -6,14 +6,14 @@ import common.data.type.Serializable;
 import core.collection.SingletonCollection;
 import core.mdsource.MarketDataSourceModule;
 import core.network.NetworkModule;
-import core.transport.TransportModule;
+import core.transport.write.MDWriterTransportModule;
 
 public class MDSModule extends AbstractModule {
 
     @Override
     protected void configure() {
         install(new NetworkModule());
-        install(new TransportModule());
+        install(new MDWriterTransportModule());
         install(new MarketDataSourceModule());
         install(new SingletonCollection<Serializable>());
 
