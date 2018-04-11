@@ -18,8 +18,9 @@ public class L3QuoteMessage {
     private static final int TYPE_I = 2;
     private static final int SIZE_I = 4;
     private static final int PRICE_I = 12;
+    private static final int LENGTH = 20;
 
-    private static final ByteBuffer BUFFER = ByteBuffer.allocate(512);
+    private static final ByteBuffer BUFFER = ByteBuffer.allocate(LENGTH);
 
     // TODO: abstract out the header writing portion and create a more robust message schema
     public static ByteBuffer pack(L3Quote quote) {
@@ -28,7 +29,7 @@ public class L3QuoteMessage {
         BUFFER.putShort(TYPE_I, quote.type().code());
         BUFFER.putDouble(SIZE_I, quote.size());
         BUFFER.putDouble(PRICE_I, quote.price());
-        BUFFER.rewind();
+        BUFFER.rewind();    // TODO: is rewind necessary?
         return BUFFER;
     }
 

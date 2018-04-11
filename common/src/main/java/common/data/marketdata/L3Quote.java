@@ -14,6 +14,11 @@ public final class L3Quote implements Serializable, Reusable {
         return type;
     }
 
+    public L3Quote type(Type type) {
+        this.type = type;
+        return this;
+    }
+
     public L3Quote type(String type) {
         this.type = Type.from(type);
         return this;
