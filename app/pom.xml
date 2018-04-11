@@ -23,6 +23,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.tyan</groupId>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>

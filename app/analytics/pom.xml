@@ -11,5 +11,17 @@
 
     <artifactId>analytics</artifactId>
 
+    <properties>
+        <transport.version>1.0-SNAPSHOT</transport.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.tyan</groupId>
+            <artifactId>transport</artifactId>
+            <version>${transport.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

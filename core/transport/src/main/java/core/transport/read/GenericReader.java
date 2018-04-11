@@ -5,7 +5,11 @@ import common.transport.BufferHandler;
 import common.transport.DomainReader;
 import common.transport.RawReader;
 
-public class GenericReader implements Runnable {
+/**
+ * This is the primary entry point for any event-driven component. The client should instantiate and start a new thread
+ * for this class to kick off the event-driven loop.
+ */
+public final class GenericReader implements Runnable {
 
     private final RawReader reader;
     private final BufferHandler handler;
