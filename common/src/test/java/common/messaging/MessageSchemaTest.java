@@ -2,6 +2,7 @@ package common.messaging;
 
 import common.data.marketdata.L3Quote;
 import common.data.marketdata.L3Quote.Type;
+import common.messaging.marketdata.L3QuoteMessage;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;

@@ -1,7 +1,7 @@
 package core.transport.write;
 
 import com.google.inject.Singleton;
-import common.messaging.MDWriter;
+import common.messaging.marketdata.MDWriter;
 
 public class MDWriterTransportModule extends WriterTransportModule {
 

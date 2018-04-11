@@ -1,4 +1,4 @@
-package common.messaging;
+package common.messaging.marketdata;
 
 import common.data.marketdata.L3Quote;
 

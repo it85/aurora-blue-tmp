@@ -3,8 +3,8 @@ package app.mds;
 import com.google.inject.Inject;
 import common.collection.SharedQueueBuffer;
 import common.data.marketdata.L3Quote;
-import common.messaging.MDWriter;
 import common.data.type.Serializable;
+import common.messaging.marketdata.MDWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

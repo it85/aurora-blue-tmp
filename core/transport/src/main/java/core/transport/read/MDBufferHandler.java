@@ -2,8 +2,8 @@ package core.transport.read;
 
 import com.google.inject.Inject;
 import common.data.marketdata.L3Quote;
-import common.messaging.L3QuoteMessage;
-import common.messaging.MDHandler;
+import common.messaging.marketdata.L3QuoteMessage;
+import common.data.marketdata.MDHandler;
 import common.transport.BufferHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

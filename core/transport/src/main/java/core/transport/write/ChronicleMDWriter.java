@@ -2,8 +2,8 @@ package core.transport.write;
 
 import com.google.inject.Inject;
 import common.data.marketdata.L3Quote;
-import common.messaging.L3QuoteMessage;
-import common.messaging.MDWriter;
+import common.messaging.marketdata.L3QuoteMessage;
+import common.messaging.marketdata.MDWriter;
 import common.transport.SerialWriter;
 import common.transport.SerialWriterFactory;
 
