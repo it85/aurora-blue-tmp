@@ -40,10 +40,4 @@ public class Book implements Serializable {
                 ", asks=" + Arrays.toString(asks) +
                 '}';
     }
-
-    @Override
-    public short id() {
-        // TODO:
-        return 0;
-    }
 }

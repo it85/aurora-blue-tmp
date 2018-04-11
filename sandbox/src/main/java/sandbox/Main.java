@@ -15,7 +15,7 @@ public class Main {
         MDS mds = injector.getInstance(MDS.class);
         GenericReader reader = injector2.getInstance(GenericReader.class);
 
-//        new Thread(mds).start();
+        new Thread(mds).start();
 
         new Thread(reader).start();
     }

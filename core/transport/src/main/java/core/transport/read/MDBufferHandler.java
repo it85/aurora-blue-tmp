@@ -28,7 +28,7 @@ final class MDBufferHandler implements BufferHandler {
 
     @Override
     public void handle(ByteBuffer buffer) {
-        int id = buffer.getInt(0);
+        int id = buffer.getShort(0);
 
         switch (id) {
             case L3QuoteMessage.ID:

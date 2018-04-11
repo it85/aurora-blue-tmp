@@ -13,17 +13,20 @@ import java.nio.ByteBuffer;
 final class ChronicleReader implements RawReader {
 
     private final ExcerptTailer tailer;
+    private final ByteBuffer buffer;
+    private final Bytes bytes;
 
     @Inject
     ChronicleReader(@Assisted String path) {
         tailer = ChronicleFactory.createTailer(path);
+        buffer = ByteBuffer.allocate(DEFAULT_MESSAGE_SIZE);
+        bytes = Bytes.wrapForWrite(buffer);
     }
 
     @Override
     public void poll(BufferHandler handler) {
-        Bytes b = Bytes.wrapForWrite(ByteBuffer.allocate(512));
-        if (tailer.readBytes(b)) {
-            handler.handle(b.toTemporaryDirectByteBuffer());
+        if (tailer.readBytes(bytes)) {
+            handler.handle(buffer);
         }
     }
 }

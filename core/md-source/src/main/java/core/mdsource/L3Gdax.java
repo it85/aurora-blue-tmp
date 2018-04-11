@@ -21,7 +21,8 @@ final class L3Gdax implements MarketDataSource<L3Quote> {
 
     @Override
     public L3Quote translate(String quote) {
-        return gson.fromJson(quote, L3Quote.class);
+//        return gson.fromJson(quote, L3Quote.class);
+        return new L3Quote().type("DONE").price(11).size(23);
     }
 
     @Override
