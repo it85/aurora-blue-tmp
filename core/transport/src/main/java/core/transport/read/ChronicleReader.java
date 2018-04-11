@@ -18,7 +18,7 @@ final class ChronicleReader implements RawReader {
 
     @Inject
     ChronicleReader(@Assisted String path) {
-        tailer = ChronicleFactory.createTailer(path);
+        tailer = ChronicleFactory.createTailer(path);   // TODO: add option for reading from end of chronicle rather than start
         buffer = ByteBuffer.allocate(DEFAULT_MESSAGE_SIZE);
         bytes = Bytes.wrapForWrite(buffer);
     }

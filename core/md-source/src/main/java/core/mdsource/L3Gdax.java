@@ -21,7 +21,8 @@ final class L3Gdax implements MarketDataSource<L3Quote> {
 
     @Override
     public L3Quote translate(String quote) {
-        return gson.fromJson(quote, L3Quote.class);
+        GdaxL3 l3 = gson.fromJson(quote, GdaxL3.class);
+        return new L3Quote().type(l3.type).price(l3.price).size(l3.size);
     }
 
     @Override
@@ -33,5 +34,14 @@ final class L3Gdax implements MarketDataSource<L3Quote> {
     public String handshake() {
         // TODO: use a more robust way to return the handshake
         return "{\"type\":\"subscribe\",\"product_ids\":[\"" + instrument.symbol() + "\"]}";
+    }
+
+    /**
+     * A temporary class to assist in JSON de-serialization
+     */
+    private class GdaxL3 {
+        private String type;
+        private double price;
+        private double size;
     }
 }
