@@ -3,8 +3,6 @@ package app.analytics;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
-import common.analytics.turnover.Turnover;
-import common.analytics.turnover.TurnoverFactory;
 import common.data.marketdata.L3Handler;
 import common.data.marketdata.MDHandler;
 import common.util.time.TimeModule;
@@ -18,7 +16,7 @@ public final class AnalyticsModule extends AbstractModule {
         install(new TimeModule());
 
         install(new FactoryModuleBuilder()
-                .implement(Turnover.class, TurnoverImpl.class)
+                .implement(Turnover.class, Turnover.class)
                 .build(TurnoverFactory.class));
 
         bind(MDHandler.class).to(AnalyticsMDHandler.class).in(Singleton.class);

@@ -2,7 +2,6 @@ package app.analytics;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import common.analytics.turnover.Turnover;
 import common.collection.BoundedArrayDeque;
 import common.collection.BoundedQueue;
 import common.util.MathUtil;
@@ -13,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Tracks a specific turnover. What metric this class tracks is dependent on how the caller is using it.
  */
-final class TurnoverImpl implements Turnover {
+final class Turnover {
 
-    private static final Logger LOG = LogManager.getLogger(TurnoverImpl.class);
+    private static final Logger LOG = LogManager.getLogger(Turnover.class);
 
     /**
      * Store the elapsed from when the last event was seen
@@ -29,8 +28,8 @@ final class TurnoverImpl implements Turnover {
     private long lastEventTime;
 
     @Inject
-    TurnoverImpl(Time time,
-                 @Assisted int period) {
+    Turnover(Time time,
+             @Assisted int period) {
         this.time = time;
         elapsedTimes = new BoundedArrayDeque<>(period);
     }
@@ -38,8 +37,7 @@ final class TurnoverImpl implements Turnover {
     /**
      * Invoke this method when a new event is seen
      */
-    @Override
-    public void newEvent() {
+    void newEvent() {
         if (LOG.isTraceEnabled()) {
             LOG.trace("New event");
         }
@@ -56,8 +54,7 @@ final class TurnoverImpl implements Turnover {
     /**
      * @return the current turnover expressed as an average of all elapsed times seen thus far
      */
-    @Override
-    public double turnover() {
+    double turnover() {
         return MathUtil.average(elapsedTimes);
     }
 }

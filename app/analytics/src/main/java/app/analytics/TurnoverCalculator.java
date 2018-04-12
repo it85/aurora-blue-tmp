@@ -1,8 +1,6 @@
 package app.analytics;
 
 import com.google.inject.Inject;
-import common.analytics.turnover.Turnover;
-import common.analytics.turnover.TurnoverFactory;
 import common.data.marketdata.L3Handler;
 import common.data.marketdata.L3Quote;
 
