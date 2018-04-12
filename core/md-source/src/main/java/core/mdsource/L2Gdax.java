@@ -21,7 +21,7 @@ final class L2Gdax implements MarketDataSource<Book> {
 
     @Override
     public Book translate(String quote) {
-        return gson.fromJson(quote, Book.class);
+        return new Book();
     }
 
     @Override

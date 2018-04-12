@@ -1,5 +1,8 @@
 package common.analytics.turnover;
 
+/**
+ * Tracks a single turnover metric
+ */
 public interface Turnover {
 
     /**

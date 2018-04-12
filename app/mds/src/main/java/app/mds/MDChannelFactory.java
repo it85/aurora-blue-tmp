@@ -1,27 +1,13 @@
 package app.mds;
 
-import com.google.inject.Inject;
-import common.collection.SharedQueueBuffer;
 import common.data.marketdata.MarketDataSource;
-import common.data.type.Serializable;
-import common.network.SocketManager;
 
 /**
- * A simple factory for creating a new MDChannel instance
+ * There is no explicit implementation of this class -- guice handles this for us through an implicit binding (see
+ * Assisted injection and how this interface is bound in the module).
  */
+public interface MDChannelFactory {
 
-final class MDChannelFactory {
+    MDChannelImpl create(MarketDataSource source);
 
-    private final SocketManager manager;
-    private final SharedQueueBuffer<Serializable> buffer;
-
-    @Inject
-    MDChannelFactory(SocketManager manager, SharedQueueBuffer<Serializable> buffer) {
-        this.manager = manager;
-        this.buffer = buffer;
-    }
-
-    MDChannel create(MarketDataSource source) {
-        return new MDChannel(manager, buffer, source);
-    }
 }

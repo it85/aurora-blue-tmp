@@ -27,7 +27,7 @@ public final class MDS implements Runnable {
         this.buffer = buffer;
         this.writer = writer;
 
-        // TODO: abstract out the enabling of different channels out of this class
+        // TODO: abstract out the enabling of different channels out of this class?
         service.enableL2();
         service.enableL3();
     }
@@ -45,7 +45,7 @@ public final class MDS implements Runnable {
 
     @SuppressWarnings("InfiniteLoopStatement")
     private void poll() {
-        // TODO: improve busy spin policy
+        // TODO: improve busy spin policy?
         while (true) {
             if (buffer.peek() != null) {
                 if (LOG.isTraceEnabled()) {

@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
  * Encapsulates, and initializes, multiple market data channels. This class is responsible for starting up enabled
  * channels.
  */
-
 final class MDService {
 
     private static final Logger LOG = LogManager.getLogger(MDChannel.class);
@@ -30,9 +29,6 @@ final class MDService {
 
         level2 = channelFactory.create(l2Source);
         level3 = channelFactory.create(l3Source);
-
-        l2Enabled = false;
-        l3Enabled = false;
     }
 
     void enableL2() {
@@ -43,7 +39,7 @@ final class MDService {
         l3Enabled = true;
     }
 
-    public void start() {
+    void start() {
         if (l2Enabled) {
             LOG.debug("Starting Level 2 market data channel");
             new Thread(level2).start();

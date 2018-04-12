@@ -2,6 +2,7 @@ package app.mds;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import common.data.type.Serializable;
 import core.collection.SingletonCollection;
 import core.mdsource.MarketDataSourceModule;
@@ -17,7 +18,10 @@ public class MDSModule extends AbstractModule {
         install(new MarketDataSourceModule());
         install(new SingletonCollection<Serializable>());
 
-        bind(MDChannelFactory.class).in(Singleton.class);
+        install(new FactoryModuleBuilder()
+                .implement(MDChannelImpl.class, MDChannelImpl.class)
+                .build(MDChannelFactory.class));
+
         bind(MDService.class).in(Singleton.class);
         bind(MDS.class).in(Singleton.class);
     }
