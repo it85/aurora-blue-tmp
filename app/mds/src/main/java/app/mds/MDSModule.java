@@ -19,7 +19,7 @@ public class MDSModule extends AbstractModule {
         install(new SingletonCollection<Serializable>());
 
         install(new FactoryModuleBuilder()
-                .implement(MDChannelImpl.class, MDChannelImpl.class)
+                .implement(MDChannel.class, MDChannel.class)
                 .build(MDChannelFactory.class));
 
         bind(MDService.class).in(Singleton.class);
