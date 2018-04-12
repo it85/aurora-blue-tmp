@@ -1,5 +1,6 @@
 package app.analytics;
 
+import com.google.inject.Inject;
 import common.data.marketdata.L3Handler;
 import common.data.marketdata.L3Quote;
 
@@ -8,7 +9,15 @@ import common.data.marketdata.L3Quote;
  */
 final class L3Analytics implements L3Handler {
 
-    private final TurnoverCalculator turnover = new TurnoverCalculator();
+    /**
+     * Calculates various turnover-related analytics
+     */
+    private final TurnoverCalculator turnover;
+
+    @Inject
+    L3Analytics(TurnoverCalculator turnover) {
+        this.turnover = turnover;
+    }
 
     /**
      * Chain together a series of analytics calculations

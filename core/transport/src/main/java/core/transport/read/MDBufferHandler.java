@@ -2,8 +2,8 @@ package core.transport.read;
 
 import com.google.inject.Inject;
 import common.data.marketdata.L3Quote;
-import common.messaging.marketdata.L3QuoteMessage;
 import common.data.marketdata.MDHandler;
+import common.messaging.marketdata.L3QuoteMessage;
 import common.transport.BufferHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +17,7 @@ final class MDBufferHandler implements BufferHandler {
     private final MDHandler handler;
 
     /**
-     * Market data containers
+     * Market data object containers
      */
     private final L3Quote l3Quote = new L3Quote();
 
@@ -28,7 +28,7 @@ final class MDBufferHandler implements BufferHandler {
 
     @Override
     public void handle(ByteBuffer buffer) {
-        int id = buffer.getShort(0);
+        int id = buffer.getShort(0);    // TODO: encapsulate better the extraction of the message ID
 
         switch (id) {
             case L3QuoteMessage.ID:
@@ -36,7 +36,7 @@ final class MDBufferHandler implements BufferHandler {
                 handler.handle(l3Quote);
                 break;
             default:
-                LOG.warn("No handler found for message Id {}", id);
+                LOG.error("No handler found for message Id {}", id);
         }
     }
 }

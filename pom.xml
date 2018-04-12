@@ -54,7 +54,6 @@
             <artifactId>guice-assistedinject</artifactId>
             <version>${guice.assisted.version}</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
