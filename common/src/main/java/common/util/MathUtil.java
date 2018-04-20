@@ -17,5 +17,4 @@ public final class MathUtil {
         }
         return runningTotal / q.size();
     }
-
 }
