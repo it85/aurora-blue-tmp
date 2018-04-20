@@ -32,6 +32,6 @@ final class ChronicleMDWriter implements MDWriter {
 
     @Override
     public void book(Book book) {
-        writer.write(book);
+        // TODO:  
     }
 }
