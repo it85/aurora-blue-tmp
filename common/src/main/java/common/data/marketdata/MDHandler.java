@@ -5,6 +5,6 @@ package common.data.marketdata;
  *
  * Currently is just a marker interface
  */
-public interface MDHandler extends L3Handler {
+public interface MDHandler extends L3Handler, BookHandler {
 
 }

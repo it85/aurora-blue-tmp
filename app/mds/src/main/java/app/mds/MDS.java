@@ -2,6 +2,7 @@ package app.mds;
 
 import com.google.inject.Inject;
 import common.collection.SharedQueueBuffer;
+import common.data.marketdata.Book;
 import common.data.marketdata.L3Quote;
 import common.data.type.Serializable;
 import common.messaging.marketdata.MDWriter;
@@ -60,6 +61,8 @@ public final class MDS implements Runnable {
     private void write(Serializable data) {
         if (data instanceof L3Quote) {
             writer.l3Quote((L3Quote) data);
+        } else if (data instanceof Book) {
+            writer.book((Book) data);
         }
     }
 }

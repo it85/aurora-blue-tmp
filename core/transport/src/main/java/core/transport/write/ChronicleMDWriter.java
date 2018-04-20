@@ -1,6 +1,7 @@
 package core.transport.write;
 
 import com.google.inject.Inject;
+import common.data.marketdata.Book;
 import common.data.marketdata.L3Quote;
 import common.messaging.marketdata.L3QuoteMessage;
 import common.messaging.marketdata.MDWriter;
@@ -27,5 +28,10 @@ final class ChronicleMDWriter implements MDWriter {
     @Override
     public void l3Quote(L3Quote quote) {
         writer.write(L3QuoteMessage.pack(quote));
+    }
+
+    @Override
+    public void book(Book book) {
+        writer.write(book);
     }
 }

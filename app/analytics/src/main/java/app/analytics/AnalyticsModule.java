@@ -3,6 +3,7 @@ package app.analytics;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import common.data.marketdata.BookHandler;
 import common.data.marketdata.L3Handler;
 import common.data.marketdata.MDHandler;
 import common.util.time.TimeModule;
@@ -21,6 +22,7 @@ public final class AnalyticsModule extends AbstractModule {
 
         bind(MDHandler.class).to(AnalyticsMDHandler.class).in(Singleton.class);
         bind(L3Handler.class).to(L3Analytics.class).in(Singleton.class);
+        bind(BookHandler.class).to(BookAnalytics.class).in(Singleton.class);
         bind(TurnoverCalculator.class).in(Singleton.class);
     }
 }
