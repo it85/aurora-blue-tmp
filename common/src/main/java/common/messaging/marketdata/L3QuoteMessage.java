@@ -35,25 +35,40 @@ public final class L3QuoteMessage implements L3Quote, Serializable<L3Quote> {
 
 //        buffer.put(builder.setId(ID).setType(type.code()).setPrice(price).setSize(size).build().toByteArray());
         int a = 3;
-        int b = 3;
-        double c = 3.0;
-        double d = 3.0;
+        int b = 4;
+        double c = 5.0;
+        double d = 6.0;
         final byte[] arr = builder.setId(a)
-//                .setType(b)
-//                .setSize(c)
-//                .setPrice(d)
+                .setType(b)
+                .setSize(c)
+                .setPrice(d)
                 .build().toByteArray();
         buffer.put(arr);
         buffer.flip();
 //        buffer.rewind();
-        buffer.compact();
+//        buffer.compact();
+//        handle(buffer);
         return buffer;
+    }
+
+    public void handle(ByteBuffer buffer) {
+//        buffer.compact();
+        short id = buffer.array()[1];    // TODO: encapsulate better the extraction of the message ID
+
+        switch (id) {
+            case L3QuoteMessage.ID:
+                from(buffer);
+                break;
+            case BookMessage.ID:
+            default:
+                LOG.error("No handler found for message Id {}", id);
+        }
     }
 
     @Override
     public L3Quote from(ByteBuffer buffer) {
         try {
-            init(parser.parseFrom(buffer.array()));
+            init(parser.parseFrom(buffer.array(), 0, 22));
             return this;
         } catch (InvalidProtocolBufferException e) {
             LOG.error("Failed to parse {} with exception {}", L3QuoteMessage.class, e);

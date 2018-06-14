@@ -31,7 +31,6 @@ final class MDBufferHandler implements BufferHandler {
 
     @Override
     public void handle(ByteBuffer buffer) {
-        buffer.compact();
         short id = buffer.array()[1];    // TODO: encapsulate better the extraction of the message ID
 
         switch (id) {
