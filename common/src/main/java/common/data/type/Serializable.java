@@ -1,6 +1,11 @@
 package common.data.type;
 
-// TODO: What is this data type actually supposed to do????
-public interface Serializable {
+import java.nio.ByteBuffer;
+
+public interface Serializable<T> extends Reusable {
+
+    ByteBuffer asByteBuffer();
+
+    T from(ByteBuffer buffer);
 
 }

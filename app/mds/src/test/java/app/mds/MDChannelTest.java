@@ -22,17 +22,16 @@ public class MDChannelTest {
         level3 = injector.getInstance(MDChannelFactory.class).create(sourceFactory.create(Type.L3));
     }
 
-//    @Ignore
     @Test
     public void canConnectToLevel2Test() throws InterruptedException {
         level2.run();
-        Thread.sleep(10000);
+        Thread.sleep(2000);
     }
 
     @Ignore
     @Test
     public void canConnectToLevel3Test() throws InterruptedException {
         level3.run();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
 }

@@ -1,13 +1,13 @@
 package common.messaging;
 
-import common.data.marketdata.L3Quote;
-import common.data.marketdata.L3Quote.Type;
+import common.data.marketdata.L3Type;
 import common.messaging.marketdata.L3QuoteMessage;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * This class validates that every message schema works as intended. Specifically, we're looking to assert that we can
@@ -17,19 +17,24 @@ public class MessageSchemaTest {
 
     @Test
     public void l3QuoteMessageReadWriteTest() {
-        Type type = Type.DONE;
+        L3Type type = L3Type.DONE;
         double price = 100.01;
         double size = 2.34562;
 
-        L3Quote q = new L3Quote().type(type).price(price).size(size);
-        ByteBuffer b = L3QuoteMessage.pack(q);
+        L3QuoteMessage q = new L3QuoteMessage().type(type).price(price).size(size);
+        ByteBuffer b = q.asByteBuffer();
 
-        L3Quote qActual = new L3Quote();
-        L3QuoteMessage.parse(qActual, b);
+        q.reset();
+
+        assertNull(q.type());
+        assertEquals(0, q.size(), 0);
+        assertEquals(0, q.price(), 0);
+
+        q.from(b);
 
         assertEquals(L3QuoteMessage.ID, b.getShort(0));
-        assertEquals(type, qActual.type());
-        assertEquals(price, qActual.price(), 0);
-        assertEquals(size, qActual.size(), 0);
+        assertEquals(type, q.type());
+        assertEquals(price, q.price(), 0);
+        assertEquals(size, q.size(), 0);
     }
 }

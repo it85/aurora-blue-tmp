@@ -1,53 +1,107 @@
 package common.messaging.marketdata;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Parser;
 import common.data.marketdata.L3Quote;
+import common.data.marketdata.L3Type;
+import common.data.type.Serializable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import transport.message.L3Quote.L3QuoteProto;
+import transport.message.L3Quote.L3QuoteProto.Builder;
 
 import java.nio.ByteBuffer;
 
-public class L3QuoteMessage {
+public final class L3QuoteMessage implements L3Quote, Serializable<L3Quote> {
+
+    public static final short ID = 3;
 
     private static final Logger LOG = LogManager.getLogger(L3QuoteMessage.class);
+    private static final int SIZE = 512;
 
-    /**
-     * The type this object is; used for message handling purposes
-     */
-    public static final short ID = 1;
+    private final Builder builder = L3QuoteProto.newBuilder();
+    private final Parser<L3QuoteProto> parser = builder.build().getParserForType();
+    private final byte[] rawBuffer = new byte[SIZE];
+    private final ByteBuffer buffer = ByteBuffer.allocate(SIZE);
 
-    /**
-     * Below is the message schema for a given L3Quote object. <field_name>I represents the byte-offset used to store this
-     * field.
-     */
-    private static final int TYPE_I = 2;
-    private static final int SIZE_I = 4;
-    private static final int PRICE_I = 12;
-    private static final int LENGTH = 20;
+    private L3Type type;
+    private double size;
+    private double price;
 
-    private static final ByteBuffer BUFFER = ByteBuffer.allocate(LENGTH);
+    @Override
+    public ByteBuffer asByteBuffer() {
+        builder.clear();
+        buffer.clear();
 
-    // TODO: abstract out the header writing portion and create a more robust message schema
-    public static ByteBuffer pack(L3Quote quote) {
-        if (!valid(quote)) {
-            LOG.error("Tried packing an invalid L3Quote message: {}", quote);
-            System.exit(0); // TODO: need to come up with a graceful way handle and recover from a corrupt message
+//        buffer.put(builder.setId(ID).setType(type.code()).setPrice(price).setSize(size).build().toByteArray());
+        int a = 3;
+        int b = 3;
+        double c = 3.0;
+        double d = 3.0;
+        final byte[] arr = builder.setId(a)
+//                .setType(b)
+//                .setSize(c)
+//                .setPrice(d)
+                .build().toByteArray();
+        buffer.put(arr);
+        buffer.flip();
+//        buffer.rewind();
+        buffer.compact();
+        return buffer;
+    }
+
+    @Override
+    public L3Quote from(ByteBuffer buffer) {
+        try {
+            init(parser.parseFrom(buffer.array()));
+            return this;
+        } catch (InvalidProtocolBufferException e) {
+            LOG.error("Failed to parse {} with exception {}", L3QuoteMessage.class, e);
         }
-
-        BUFFER.clear();
-        BUFFER.putShort(0, ID);
-        BUFFER.putShort(TYPE_I, quote.type().code());
-        BUFFER.putDouble(SIZE_I, quote.size());
-        BUFFER.putDouble(PRICE_I, quote.price());
-        BUFFER.rewind();    // TODO: is rewind necessary?
-        return BUFFER;
+        return null;
     }
 
-    public static void parse(L3Quote q, ByteBuffer b) {
-        q.reset();
-        q.type(b.getShort(TYPE_I)).size(b.getDouble(SIZE_I)).price(b.getDouble(PRICE_I));
+    @Override
+    public L3Type type() {
+        return type;
     }
 
-    private static boolean valid(L3Quote quote) {
-        return quote.type() != null;
+    public L3QuoteMessage type(L3Type type) {
+        this.type = type;
+        return this;
+    }
+
+    @Override
+    public double size() {
+        return size;
+    }
+
+    public L3QuoteMessage size(double size) {
+        this.size = size;
+        return this;
+    }
+
+    @Override
+    public double price() {
+        return price;
+    }
+
+    public L3QuoteMessage price(double price) {
+        this.price = price;
+        return this;
+    }
+
+    private void init(L3QuoteProto proto) {
+        this.type = L3Type.from((short) proto.getType());
+        this.size = proto.getSize();
+        this.price = proto.getPrice();
+
+    }
+
+    @Override
+    public void reset() {
+        type = null;
+        size = 0;
+        price = 0;
     }
 }

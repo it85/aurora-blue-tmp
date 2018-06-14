@@ -3,7 +3,7 @@ package core.transport.write;
 import com.google.inject.Inject;
 import common.data.marketdata.Book;
 import common.data.marketdata.L3Quote;
-import common.messaging.marketdata.L3QuoteMessage;
+import common.data.type.Serializable;
 import common.messaging.marketdata.MDWriter;
 import common.transport.SerialWriter;
 import common.transport.SerialWriterFactory;
@@ -26,12 +26,17 @@ final class ChronicleMDWriter implements MDWriter {
     }
 
     @Override
-    public void l3Quote(L3Quote quote) {
-        writer.write(L3QuoteMessage.pack(quote));
+    public void l3Quote(Serializable<L3Quote> quote) {
+        writer.write(quote.asByteBuffer());
     }
 
     @Override
     public void book(Book book) {
         // TODO:  
+    }
+
+    @Override
+    public void write(Serializable data) {
+        writer.write(data.asByteBuffer());
     }
 }

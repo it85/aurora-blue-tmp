@@ -3,10 +3,12 @@ package core.mdsource;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import common.data.marketdata.Instrument;
-import common.data.marketdata.L3Quote;
+import common.data.marketdata.L3Type;
 import common.data.marketdata.MarketDataSource;
+import common.data.type.Serializable;
+import common.messaging.marketdata.L3QuoteMessage;
 
-final class L3Gdax implements MarketDataSource<L3Quote> {
+final class L3Gdax implements MarketDataSource<Serializable> {
 
     private static final String ENDPOINT = "wss://ws-feed.gdax.com";
 
@@ -20,9 +22,9 @@ final class L3Gdax implements MarketDataSource<L3Quote> {
     }
 
     @Override
-    public L3Quote translate(String quote) {
+    public Serializable translate(String quote) {
         GdaxL3 l3 = gson.fromJson(quote, GdaxL3.class);
-        return new L3Quote().type(l3.type).price(l3.price).size(l3.size);
+        return new L3QuoteMessage().type(L3Type.from(l3.type)).price(l3.price).size(l3.size);
     }
 
     @Override

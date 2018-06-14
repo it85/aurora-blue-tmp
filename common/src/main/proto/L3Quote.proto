@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package message;
+
+option java_package = "transport.message";
+
+message L3QuoteProto {
+    int32 id = 1;
+    int32 type = 2;
+    double size = 3;
+    double price = 4;
+}

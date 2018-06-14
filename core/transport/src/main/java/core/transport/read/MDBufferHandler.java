@@ -3,7 +3,6 @@ package core.transport.read;
 import com.google.inject.Inject;
 import common.data.marketdata.BasicBook;
 import common.data.marketdata.Book;
-import common.data.marketdata.L3Quote;
 import common.data.marketdata.MDHandler;
 import common.messaging.marketdata.BookMessage;
 import common.messaging.marketdata.L3QuoteMessage;
@@ -20,7 +19,7 @@ final class MDBufferHandler implements BufferHandler {
     /**
      * Market data object containers
      */
-    private final L3Quote l3Quote = new L3Quote();
+    private final L3QuoteMessage l3Quote = new L3QuoteMessage();
     private final Book book = new BasicBook();
 
     private final MDHandler handler;
@@ -32,11 +31,12 @@ final class MDBufferHandler implements BufferHandler {
 
     @Override
     public void handle(ByteBuffer buffer) {
-        int id = buffer.getShort(0);    // TODO: encapsulate better the extraction of the message ID
+        buffer.compact();
+        short id = buffer.array()[1];    // TODO: encapsulate better the extraction of the message ID
 
         switch (id) {
             case L3QuoteMessage.ID:
-                L3QuoteMessage.parse(l3Quote, buffer);
+                l3Quote.from(buffer);
                 handler.handle(l3Quote);
                 break;
             case BookMessage.ID:

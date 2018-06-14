@@ -11,6 +11,12 @@
 
     <artifactId>transport</artifactId>
 
+    <properties>
+        <google.protobuf.version>3.3.1</google.protobuf.version>
+        <xolstice.version>0.5.0</xolstice.version>
+        <protoc.path>C:\Program Files\protoc-3.3.0-win32\bin\protoc.exe</protoc.path>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -22,7 +28,34 @@
             <artifactId>chronicle</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${google.protobuf.version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- this plug requires itself and the google protobuf dep. remain outside of dep/plugin maven mngmnt-->
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>${xolstice.version}</version>
+                <configuration>
+                    <protocExecutable>${protoc.path}</protocExecutable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

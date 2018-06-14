@@ -19,6 +19,9 @@
         <tyrus.client.version>1.1</tyrus.client.version>
         <tyrus.container.grizzly.version>1.1</tyrus.container.grizzly.version>
         <eclipse.jetty.version>9.0.0.M0</eclipse.jetty.version>
+        <google.protobuf.version>3.3.1</google.protobuf.version>
+        <xolstice.version>0.5.0</xolstice.version>
+        <protoc.path>C:\Program Files\protoc-3.3.0-win32\bin\protoc.exe</protoc.path>
     </properties>
 
     <dependencies>
@@ -42,11 +45,6 @@
             <artifactId>tyrus-container-grizzly</artifactId>
             <version>${tyrus.container.grizzly.version}</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.eclipse.jetty.websocket</groupId>-->
-        <!--<artifactId>websocket-client</artifactId>-->
-        <!--<version>${eclipse.jetty.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
             <artifactId>websocket-client</artifactId>
@@ -57,7 +55,33 @@
             <artifactId>hppc</artifactId>
             <version>0.7.3</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${google.protobuf.version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- this plug requires itself and the google protobuf dep. remain outside of dep/plugin maven mngmnt-->
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>${xolstice.version}</version>
+                <configuration>
+                    <protocExecutable>${protoc.path}</protocExecutable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

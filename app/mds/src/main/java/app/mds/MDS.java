@@ -2,8 +2,6 @@ package app.mds;
 
 import com.google.inject.Inject;
 import common.collection.SharedQueueBuffer;
-import common.data.marketdata.Book;
-import common.data.marketdata.L3Quote;
 import common.data.type.Serializable;
 import common.messaging.marketdata.MDWriter;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +27,7 @@ public final class MDS implements Runnable {
         this.writer = writer;
 
         // TODO: abstract out the enabling of different channels out of this class?
-        service.enableL2();
+//        service.enableL2();
         service.enableL3();
     }
 
@@ -59,10 +57,6 @@ public final class MDS implements Runnable {
 
     // TODO: figure out a way to get rid of doing dirty casting -- might not be possible but need to try
     private void write(Serializable data) {
-        if (data instanceof L3Quote) {
-            writer.l3Quote((L3Quote) data);
-        } else if (data instanceof Book) {
-            writer.book((Book) data);
-        }
+        writer.write(data);
     }
 }
