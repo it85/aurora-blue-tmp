@@ -1,11 +1,9 @@
 package common.data.marketdata;
 
-import common.data.type.Serializable;
-
 /**
  * Encapsulates a full book for a venue, meaning both sides
  */
-public interface Book extends Serializable {
+public interface Book {
 
     HalfBook bids();
 

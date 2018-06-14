@@ -1,8 +1,6 @@
 package core.transport.read;
 
 import com.google.inject.Inject;
-import common.data.marketdata.BasicBook;
-import common.data.marketdata.Book;
 import common.data.marketdata.MDHandler;
 import common.messaging.marketdata.BookMessage;
 import common.messaging.marketdata.L3QuoteMessage;
@@ -20,7 +18,7 @@ final class MDBufferHandler implements BufferHandler {
      * Market data object containers
      */
     private final L3QuoteMessage l3Quote = new L3QuoteMessage();
-    private final Book book = new BasicBook();
+    private final BookMessage book = new BookMessage();
 
     private final MDHandler handler;
 
@@ -39,7 +37,7 @@ final class MDBufferHandler implements BufferHandler {
                 handler.handle(l3Quote);
                 break;
             case BookMessage.ID:
-                BookMessage.parse(book, buffer);
+                book.from(buffer);
                 handler.handle(book);
             default:
                 LOG.error("No handler found for message Id {}", id);

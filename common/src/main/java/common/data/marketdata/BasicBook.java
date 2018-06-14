@@ -1,7 +1,5 @@
 package common.data.marketdata;
 
-import java.nio.ByteBuffer;
-
 public class BasicBook implements Book {
 
     private final HalfBook bids;
@@ -28,18 +26,18 @@ public class BasicBook implements Book {
         asks.clear();
     }
 
-    @Override
-    public ByteBuffer asByteBuffer() {
-        return null;
-    }
-
-    @Override
-    public Object from(ByteBuffer buffer) {
-        return null;
-    }
-
-    @Override
-    public void reset() {
-
-    }
+//    @Override
+//    public ByteBuffer asByteBuffer() {
+//        return null;
+//    }
+//
+//    @Override
+//    public Object from(ByteBuffer buffer) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void reset() {
+//
+//    }
 }

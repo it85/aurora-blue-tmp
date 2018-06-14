@@ -21,7 +21,6 @@ public final class L3QuoteMessage implements L3Quote, Serializable<L3Quote> {
 
     private final Builder builder = L3QuoteProto.newBuilder();
     private final Parser<L3QuoteProto> parser = builder.build().getParserForType();
-    private final byte[] rawBuffer = new byte[SIZE];
     private final ByteBuffer buffer = ByteBuffer.allocate(SIZE);
 
     private L3Type type;
@@ -33,42 +32,21 @@ public final class L3QuoteMessage implements L3Quote, Serializable<L3Quote> {
         builder.clear();
         buffer.clear();
 
-//        buffer.put(builder.setId(ID).setType(type.code()).setPrice(price).setSize(size).build().toByteArray());
-        int a = 3;
-        int b = 4;
-        double c = 5.0;
-        double d = 6.0;
-        final byte[] arr = builder.setId(a)
-                .setType(b)
-                .setSize(c)
-                .setPrice(d)
-                .build().toByteArray();
-        buffer.put(arr);
+        buffer.put(builder.setId(ID)
+                .setType(type.code())
+                .setPrice(price)
+                .setSize(size)
+                .build()
+                .toByteArray());
+
         buffer.flip();
-//        buffer.rewind();
-//        buffer.compact();
-//        handle(buffer);
         return buffer;
-    }
-
-    public void handle(ByteBuffer buffer) {
-//        buffer.compact();
-        short id = buffer.array()[1];    // TODO: encapsulate better the extraction of the message ID
-
-        switch (id) {
-            case L3QuoteMessage.ID:
-                from(buffer);
-                break;
-            case BookMessage.ID:
-            default:
-                LOG.error("No handler found for message Id {}", id);
-        }
     }
 
     @Override
     public L3Quote from(ByteBuffer buffer) {
         try {
-            init(parser.parseFrom(buffer.array(), 0, 22));
+            init(parser.parseFrom(buffer.array(), 0, buffer.limit()));  // TODO: need to store message length, otherwise will get parse error
             return this;
         } catch (InvalidProtocolBufferException e) {
             LOG.error("Failed to parse {} with exception {}", L3QuoteMessage.class, e);

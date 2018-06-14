@@ -27,8 +27,8 @@ public final class MDS implements Runnable {
         this.writer = writer;
 
         // TODO: abstract out the enabling of different channels out of this class?
-//        service.enableL2();
-        service.enableL3();
+        service.enableL2();
+//        service.enableL3();
     }
 
     @Override

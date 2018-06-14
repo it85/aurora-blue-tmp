@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package message;
+
+option java_package = "transport.message";
+
+message BookProto {
+    int32 id = 1;
+    map<string, string> bids = 2;
+}

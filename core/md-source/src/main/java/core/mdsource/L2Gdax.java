@@ -6,8 +6,13 @@ import common.data.marketdata.BasicBook;
 import common.data.marketdata.Book;
 import common.data.marketdata.Instrument;
 import common.data.marketdata.MarketDataSource;
+import common.data.type.Serializable;
+import common.messaging.marketdata.BookMessage;
 
-final class L2Gdax implements MarketDataSource<Book> {
+import java.util.HashMap;
+import java.util.Map;
+
+final class L2Gdax implements MarketDataSource<Serializable> {
 
     private static final String ENDPOINT = "wss://ws-feed.gdax.com";    // TODO: Refactor into a common class
 
@@ -24,19 +29,22 @@ final class L2Gdax implements MarketDataSource<Book> {
     }
 
     @Override
-    public Book translate(String quote) {
-        GdaxL2Snapshot snapshot = gson.fromJson(quote, GdaxL2Snapshot.class);
-
-        switch(snapshot.type) {
-            case GdaxL2Snapshot.CHANGE:
-                update(snapshot);
-                return book;
-            case GdaxL2Snapshot.SNAPSHOT:
-                snapshot(snapshot);
-                return book;
-            default:
-                return book;
-        }
+    public Serializable translate(String quote) {
+//        GdaxL2Snapshot snapshot = gson.fromJson(quote, GdaxL2Snapshot.class);
+//
+//        switch(snapshot.type) {
+//            case GdaxL2Snapshot.CHANGE:
+//                update(snapshot);
+//                return book;
+//            case GdaxL2Snapshot.SNAPSHOT:
+//                snapshot(snapshot);
+//                return book;
+//            default:
+//                return book;
+//        }
+        Map<String, String> map = new HashMap<>();
+        map.put("testKey", "elmo");
+        return new BookMessage().storeBids(map);
     }
 
     @Override
