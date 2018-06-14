@@ -1,11 +1,11 @@
 package common.data.marketdata;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.carrotsearch.hppc.LongLongMap;
+import com.carrotsearch.hppc.LongLongScatterMap;
 
 public class BasicHalfBook implements HalfBook {
 
-    private final Map<Double, Double> quotes;
+    private final LongLongMap quotes;
 
     /**
      * Instantiate a new BasicHalfBook instance
@@ -19,17 +19,17 @@ public class BasicHalfBook implements HalfBook {
 //        } else {
 //            quotes = new TreeMap<>();
 //        }
-        quotes = new ConcurrentHashMap<>();
+        quotes = new LongLongScatterMap();
     }
 
     @Override
     public void update(double price, double size) {
-        quotes.put(price, size);
+        quotes.put(0, 0);
     }
 
     @Override
     public double size(double price) {
-        return quotes.get(price);
+        return quotes.get(0);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class BasicHalfBook implements HalfBook {
     }
 
     @Override
-    public Map<Double, Double> rawValues() {
+    public LongLongMap rawValues() {
         return quotes;
     }
 }

@@ -1,6 +1,6 @@
 package common.data.marketdata;
 
-import java.util.Map;
+import com.carrotsearch.hppc.LongLongMap;
 
 /**
  * Encapsulates a set of quotes, and various possible operations, for a particular side, either bid or ask.
@@ -21,6 +21,6 @@ public interface HalfBook {
 
     void clear();
 
-    Map<Double, Double> rawValues();
+    LongLongMap rawValues();
 
 }

@@ -2,15 +2,10 @@ package core.mdsource;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
-import common.data.marketdata.BasicBook;
-import common.data.marketdata.Book;
 import common.data.marketdata.Instrument;
 import common.data.marketdata.MarketDataSource;
 import common.data.type.Serializable;
 import common.messaging.marketdata.BookMessage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 final class L2Gdax implements MarketDataSource<Serializable> {
 
@@ -18,33 +13,29 @@ final class L2Gdax implements MarketDataSource<Serializable> {
 
     private final Instrument instrument;
     private final Gson gson;    // TODO: Get rid and use low-latency custom String parser
-    private final Book book;
+    private final BookMessage book;
 
     @Inject
     L2Gdax() {
         this.instrument = new Instrument().symbol("BTC-USD");   // TODO: Inject a symbol?
         this.gson = new Gson();
-
-        book = new BasicBook();
+        book = new BookMessage();
     }
 
     @Override
     public Serializable translate(String quote) {
-//        GdaxL2Snapshot snapshot = gson.fromJson(quote, GdaxL2Snapshot.class);
-//
-//        switch(snapshot.type) {
-//            case GdaxL2Snapshot.CHANGE:
-//                update(snapshot);
-//                return book;
-//            case GdaxL2Snapshot.SNAPSHOT:
-//                snapshot(snapshot);
-//                return book;
-//            default:
-//                return book;
-//        }
-        Map<String, String> map = new HashMap<>();
-        map.put("testKey", "elmo");
-        return new BookMessage().storeBids(map);
+        GdaxL2Snapshot snapshot = gson.fromJson(quote, GdaxL2Snapshot.class);
+
+        switch (snapshot.type) {
+            case GdaxL2Snapshot.CHANGE:
+                update(snapshot);
+                return book;
+            case GdaxL2Snapshot.SNAPSHOT:
+                snapshot(snapshot);
+                return book;
+            default:
+                return book;
+        }
     }
 
     @Override
@@ -63,6 +54,7 @@ final class L2Gdax implements MarketDataSource<Serializable> {
 
     // TODO: is it possible a snapshot could have both sell/buy changes?
     private void update(GdaxL2Snapshot snapshot) {
+        book.clear();   // TODO: this is expensive
         if (snapshot.changes[0][0].equals("sell")) {
             book.asks().update(Double.parseDouble(snapshot.changes[0][1]), Double.parseDouble(snapshot.changes[0][2]));
         } else {
@@ -71,8 +63,7 @@ final class L2Gdax implements MarketDataSource<Serializable> {
     }
 
     private void snapshot(GdaxL2Snapshot snapshot) {
-        book.clear();
-
+        book.clear();   // TODO: this is expensive
         for (int i = 0; i < snapshot.bids.length; i++) {
             book.bids().update(Double.parseDouble(snapshot.bids[i][0]), Double.parseDouble(snapshot.bids[i][1]));
         }

@@ -2,6 +2,7 @@ package common.messaging.marketdata;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Parser;
+import common.data.marketdata.BasicHalfBook;
 import common.data.marketdata.Book;
 import common.data.marketdata.HalfBook;
 import common.data.type.Serializable;
@@ -11,7 +12,6 @@ import transport.message.Book.BookProto;
 import transport.message.Book.BookProto.Builder;
 
 import java.nio.ByteBuffer;
-import java.util.Map;
 
 public class BookMessage implements Book, Serializable<Book> {
 
@@ -24,7 +24,8 @@ public class BookMessage implements Book, Serializable<Book> {
     private final Parser<BookProto> parser = builder.build().getParserForType();
     private final ByteBuffer buffer = ByteBuffer.allocate(SIZE);
 
-    private Map<String, String> bids;
+    private HalfBook bids = new BasicHalfBook(false);
+    private HalfBook asks = new BasicHalfBook(false);
 
     @Override
     public void reset() {
@@ -36,7 +37,7 @@ public class BookMessage implements Book, Serializable<Book> {
         builder.clear();
         buffer.clear();
 
-        buffer.put(builder.setId(ID).putAllBids(bids)
+        buffer.put(builder.setId(ID).putAllBids(null)
                 .build()
                 .toByteArray());
 
@@ -57,25 +58,21 @@ public class BookMessage implements Book, Serializable<Book> {
 
     @Override
     public HalfBook bids() {
-        return null;
+        return bids;
     }
 
     @Override
     public HalfBook asks() {
-        return null;
+        return asks;
     }
 
     @Override
     public void clear() {
-
-    }
-
-    public BookMessage storeBids(Map<String, String> bids) {
-        this.bids = bids;
-        return this;
+        bids.clear();
+        asks.clear();
     }
 
     private void init(BookProto proto) {
-        this.bids = proto.getBidsMap();
+//        this.bids = proto.getBidsMap();
     }
 }

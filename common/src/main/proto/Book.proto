@@ -6,5 +6,6 @@ option java_package = "transport.message";
 
 message BookProto {
     int32 id = 1;
-    map<string, string> bids = 2;
+    map<sfixed64, sfixed64> bids = 2;
+    map<sfixed64, sfixed64> asks = 3;
 }
